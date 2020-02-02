@@ -3,6 +3,7 @@ import time
 import smtplib
 from email.mime.text import MIMEText
 from email.header    import Header
+from datetime import datetime
 
 adres = "https://logowanie.wat.edu.pl/cas/login?service=https%3A%2F%2Fusos.wat.edu.pl%2Fkontroler.php%3F_action%3Dlogowaniecas%2Findex&locale=pl"
 adres2 = "https://usos.wat.edu.pl/kontroler.php?_action=dla_stud/studia/oceny/index"
@@ -12,9 +13,9 @@ haslo = "example"
 def wyslijMaila():
     smtp_host = 'poczta.o2.pl'  
     login, password = 'example@o2.pl', 'example'
-    recipients_emails = ['reciver1@student.wat.edu.pl','reciver2@student.wat.edu.pl']
+    recipients_emails = ['example@student.wat.edu.pl','example@student.wat.edu.pl','example@student.wat.edu.pl','example@student.wat.edu.pl']
 
-    msg = MIMEText('Zmienila sie ocena na usos!', 'plain', 'utf-8')
+    msg = MIMEText('Nowa ocena na usos!', 'plain', 'utf-8')
     msg['Subject'] = Header('subject…', 'utf-8')
     msg['From'] = login
     msg['To'] = ", ".join(recipients_emails)
@@ -53,6 +54,11 @@ while True:
     if newNumber != oldNumber:
         wyslijMaila()
         oldNumber = newNumber
+        _time = datetime.now().strftime("%H:%M:%S")
+        logFileName = '/home/zajko/log_'
+        logFileExt = '_.txt'
+        fullName = logFileName+_time+logFileExt
+        print(source,file=open(fullName,'w'))
     else:
-        print("Nothing")
+        print("nic")
     time.sleep(60)
